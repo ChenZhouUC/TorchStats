@@ -47,12 +47,13 @@ def convert_leaf_modules_to_stat_tree(leaf_modules):
 
 
 class ModelStat(object):
-    def __init__(self, model, input_size, query_granularity=1):
+    def __init__(self, model, input_size, query_granularity=1, logger=None):
         assert isinstance(model, nn.Module)
         assert isinstance(input_size, (tuple, list)) and len(input_size) == 3
         self._model = model
         self._input_size = input_size
         self._query_granularity = query_granularity
+        self.logger = logger
 
     def _analyze_model(self):
         model_hook = ModelHook(self._model, self._input_size)
@@ -66,9 +67,12 @@ class ModelStat(object):
     def show_report(self):
         collected_nodes = self._analyze_model()
         report = report_format(collected_nodes)
-        print(report)
+        if self.logger is not None:
+            self.logger.info("\n"+report)
+        else:
+            print(report)
 
 
-def stat(model, input_size, query_granularity=1):
-    ms = ModelStat(model, input_size, query_granularity)
+def stat(model, input_size, query_granularity=1, logger=None):
+    ms = ModelStat(model, input_size, query_granularity, logger)
     ms.show_report()
