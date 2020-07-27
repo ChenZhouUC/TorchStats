@@ -111,4 +111,7 @@ class ModelHook(object):
         return leaf_modules
 
     def retrieve_leaf_modules(self):
+        for module in self._model.modules():
+            if module.__class__ in self._origin_call:
+                module.__class__.__call__ = self._origin_call[module.__class__]
         return OrderedDict(self._retrieve_leaf_modules(self._model))
