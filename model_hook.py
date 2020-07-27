@@ -39,6 +39,19 @@ class ModelHook(object):
         module.register_buffer('Flops', torch.zeros(1).long())
         module.register_buffer('Memory', torch.zeros(2).long())
 
+    @staticmethod
+    def _cancel_buffer(module):
+        assert isinstance(module, nn.Module)
+
+        if len(list(module.children())) > 0:
+            return
+        for k in ['input_shape', 'output_shape', 'parameter_quantity',
+                  'inference_memory', 'MAdd', 'duration', 'Flops', 'Memory']:
+            try:
+                module._buffers.pop(k)
+            except Exception:
+                pass
+
     def _sub_module_call_hook(self):
         def wrap_call(module, *input, **kwargs):
             assert module.__class__ in self._origin_call
@@ -47,7 +60,8 @@ class ModelHook(object):
             itemsize = input[0].detach().numpy().itemsize
 
             start = time.time()
-            output = self._origin_call[module.__class__](module, *input, **kwargs)
+            output = self._origin_call[module.__class__](
+                module, *input, **kwargs)
             end = time.time()
             module.duration = torch.from_numpy(
                 np.array([end - start], dtype=np.float32))
@@ -68,7 +82,8 @@ class ModelHook(object):
             for s in output.size()[1:]:
                 inference_memory *= s
             # memory += parameters_number  # exclude parameter memory
-            inference_memory = inference_memory * 4 / (1024 ** 2)  # shown as MB unit
+            inference_memory = inference_memory * \
+                4 / (1024 ** 2)  # shown as MB unit
             module.inference_memory = torch.from_numpy(
                 np.array([inference_memory], dtype=np.float32))
 
