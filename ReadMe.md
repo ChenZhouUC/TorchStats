@@ -1,11 +1,9 @@
 # Inherited Repo from torchstat
 ### (Transplanted for EdgeNNWorkshop)
 
-```css
 <div style="align: center">
 <img src="https://github.com/ChenZhouUC/TorchStats/blob/master/assets/torchstats.png" alt="torchstats" width="600" height="306"/>
 </div>
-```
 
 #### Usage
 
