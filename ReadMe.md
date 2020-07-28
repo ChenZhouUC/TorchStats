@@ -1,7 +1,22 @@
 # Inherited Repo from torchstat
 ### (Transplanted for EdgeNNWorkshop)
 
-![torchstats](https://github.com/ChenZhouUC/TorchStats/blob/master/assets/torchstats.png)
+```css
+<div style="align: center">
+<img src="https://github.com/ChenZhouUC/TorchStats/blob/master/assets/torchstats.png" alt="torchstats" width="600" height="306"/>
+</div>
+```
+
+#### Usage
+
+```python
+conda activate <pytorch-env>
+pip install torchstat # conda install torchstat
+
+# check the torchstat installation position
+# overwrite the torchstat dir with files under this repo
+cp TorchStats/*.py <torchstat-dir>/torchstat/ 
+```
 
 #### Demo
 
