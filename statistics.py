@@ -1,4 +1,3 @@
-import torch
 import torch.nn as nn
 from torchstat import ModelHook
 from collections import OrderedDict
@@ -36,8 +35,7 @@ def convert_leaf_modules_to_stat_tree(leaf_modules):
                 output_shape = leaf_module.output_shape.numpy().tolist()
                 node.input_shape = input_shape
                 node.output_shape = output_shape
-                node.parameter_quantity = leaf_module.parameter_quantity.numpy()[
-                    0]
+                node.parameter_quantity = leaf_module.parameter_quantity.numpy()[0]
                 node.inference_memory = leaf_module.inference_memory.numpy()[0]
                 node.MAdd = leaf_module.MAdd.numpy()[0]
                 node.Flops = leaf_module.Flops.numpy()[0]
@@ -50,6 +48,7 @@ class ModelStat(object):
     def __init__(self, model, input_size, query_granularity=1, logger=None):
         assert isinstance(model, nn.Module)
         assert isinstance(input_size, (tuple, list)) and len(input_size) == 3
+
         self._model = model
         self._input_size = input_size
         self._query_granularity = query_granularity

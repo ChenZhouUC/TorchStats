@@ -1,7 +1,6 @@
 from torchstat import stat
 import argparse
 import importlib.util
-import torch
 
 
 def arg():
