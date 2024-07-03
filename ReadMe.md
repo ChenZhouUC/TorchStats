@@ -1,9 +1,12 @@
-# Inherited Repo from torchstat
-### (Transplanted for EdgeNNWorkshop)
+# Inherited Repo from `torchstat`
 
 <div align=center>
-<img src="https://github.com/ChenZhouUC/TorchStats/blob/master/assets/torchstats.png" alt="torchstats" width="500" height="255" align="center"/>
+<img src="https://github.com/ChenZhouUC/TorchStats/blob/master/assets/torchstats.png" alt="torchstats" width="250" align="center"/>
 </div>
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
+
+This is an inherited repository from the package `torchstat`. I updated it a little for transplantation over `EdgeNNWorkshop`, which is a private project developed for applying neural networks on edge computing cases.
 
 #### Usage
 
